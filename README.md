@@ -12,7 +12,7 @@ pip3 install -r requirements_dev.txt || requirements.txt
 ## **Features implemented**
 - Most famous tracks of an artist
 
-## **Features that will be implement**
+## **Features that will be implemented**
 - Track list of an album
 - Receive information of an artist (Such as followers and generes)
 - Receive information of an album
