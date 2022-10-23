@@ -1,0 +1,5 @@
+Ciao! sono SpotyBot, il mio compito è quello di aiutarti nel mondo della musica!
+
+Usa /top per sapere le canzoni più famose del tuo artista preferito!
+
+(In aggiornamento)

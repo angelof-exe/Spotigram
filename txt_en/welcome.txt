@@ -1,0 +1,5 @@
+Hi! I'm SpotiBot, I help you in the world of the music!
+
+Use /top to know the most tracks of your favorite artist!
+
+(Updating)
