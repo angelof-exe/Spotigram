@@ -2,11 +2,11 @@ import telebot
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-# Token
-# Access Token Spotify for developer
+# Insert your CID and SECRET CID from Spotify For Developers
 cid = "Insert your CID"
 cid_secret = "Insert your SECRET CID"
 
+# Insert your Bot Token taken from BotFather
 API_TOKEN = "Insert your telegram bot token"
 
 # Spotipy setting
