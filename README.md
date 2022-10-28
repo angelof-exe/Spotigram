@@ -16,9 +16,9 @@ Insert your CID and CID SECRET from Spotify for Developers and you Bot Token tak
 
 ## **Features implemented**
 - Most famous tracks of an artist
+- Receive information of an album 🆕
 
 ## **Features that will be implemented**
 - Track list of an album
 - Receive information of an artist (Such as followers and generes)
-- Receive information of an album
 - Listen a preview of a song
