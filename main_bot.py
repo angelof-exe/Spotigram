@@ -1,33 +1,53 @@
 from setting import bot, sp, user_language
-import bot_en
-import bot_it
+# import bot_en
+# import bot_it
 
 # Set the language for the bot
-def check_and_set_language():
-    if(user_language == "it"):
-        return bot_it
-    elif((user_language == "en") or (user_language.lower() == "none")):
-        return bot_en
+global start_txt
+start_txt = ''
+global top_track_txt
+top_track_txt = ''
 
-bot_lang = check_and_set_language()
+def check_and_set_language():
+    global start_txt
+    global top_track_txt
+
+    if(user_language == "it"):
+        lan = "txt_it"
+
+        f = open(f"{lan}/welcome.txt", "r")
+
+        start_txt = str(f.read())
+        f.close()
+
+        f = open(f"{lan}/top_track.txt", "r")
+        top_track_txt = str(f.read())
+        f.close()
+
+    elif((user_language == "en") or (user_language.lower() == "none")):
+        lan = "txt_en"
+
+        f = open(f"{lan}/welcome.txt", "r")
+        start_txt = str(f.read())
+        f.close()
+
+        f = open(f"{lan}/top_track.txt", "r")
+        top_track_txt = str(f.read())
+        f.close()
+
 
 @bot.message_handler(commands=['start'])
 def send_start(message):
-    bot_lang = check_and_set_language()
-    chat_id_tmp = message.chat.id
-    bot_en.init(chat_id_tmp)
-    bot_it.init(chat_id_tmp)
+    check_and_set_language()
+    chat_id = message.chat.id
     
-    bot_lang.send_start()
+    bot.send_message(chat_id, start_txt)
 
 @bot.message_handler(commands=['top'])
 def top_tracks(message):
     bot_lang = check_and_set_language()
-    chat_id_tmp = message.chat.id
-    bot_en.init(chat_id_tmp)
-    bot_it.init(chat_id_tmp)
-
-    bot_lang.send_top_tracks()
+    chat_id = message.chat.id
+    bot.send_message(chat_id, top_track_txt)
     bot.register_next_step_handler(message, top_track)
 
 # ================== TOP 5 TRACKS ==================
@@ -43,7 +63,7 @@ def top_track(message):
 
     buffer = '' #Buffer for send the message
     for idx, track in enumerate(results['tracks'][:5]):
-        buffer += str(idx + 1)+ " " + track['name'] + "\n"
+        buffer += str(idx + 1) + " - " + track['name'] + "\n"
 
     bot.send_message(chat_id_tmp, buffer)
 
@@ -62,17 +82,17 @@ def search_artist_id(artist_name) -> str:
 def set_language(message):
     # print("Set to italian")
     bot.send_message(message.chat.id, "Lingua settata in italiano")
-    bot_lang = bot_it
     global user_language
     user_language = 'it'
+    check_and_set_language()
 
 # Change the language to english
 @bot.message_handler(commands=['eng'])
 def set_language(message):
     #print("Set to english")
     bot.send_message(message.chat.id, "Set english as language")
-    bot_lang = bot_en
     global user_language
     user_language = 'en'
+    check_and_set_language()
     
 bot.polling()
