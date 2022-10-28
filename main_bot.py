@@ -7,6 +7,8 @@ global start_txt
 start_txt = ''
 global top_track_txt
 top_track_txt = ''
+global change_lang
+change_lang = ''
 
 def check_and_set_language():
     global start_txt
@@ -24,6 +26,10 @@ def check_and_set_language():
         top_track_txt = str(f.read())
         f.close()
 
+        f = open(f"{lan}/change_lang.txt", "r")
+        change_lang = str(f.read())
+        f.close()
+
     elif((user_language == "en") or (user_language.lower() == "none")):
         lan = "txt_en"
 
@@ -35,17 +41,21 @@ def check_and_set_language():
         top_track_txt = str(f.read())
         f.close()
 
+        f = open(f"{lan}/change_lang.txt", "r")
+        change_lang = str(f.read())
+        f.close()
+
 
 @bot.message_handler(commands=['start'])
 def send_start(message):
     check_and_set_language()
     chat_id = message.chat.id
-    
+
     bot.send_message(chat_id, start_txt)
+    bot.send_message(chat_id, change_lang)
 
 @bot.message_handler(commands=['top'])
 def top_tracks(message):
-    bot_lang = check_and_set_language()
     chat_id = message.chat.id
     bot.send_message(chat_id, top_track_txt)
     bot.register_next_step_handler(message, top_track)
